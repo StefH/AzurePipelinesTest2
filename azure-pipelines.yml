@@ -44,7 +44,7 @@ steps:
   inputs:
     command: custom
     custom: nuget
-    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --source https://www.myget.org/F/stef-test/api/v3/index.json --no-service-endpoint --api-key $(MyGetKey)
+    arguments: push $(Build.ArtifactStagingDirectory)\packages\*.nupkg --source https://www.myget.org/F/stef-test/api/v3/index.json --no-service-endpoint --api-key $(MyGetKey)
 
 #- task: DotNetCoreCLI@2
 #  displayName: 'MyGet !'
