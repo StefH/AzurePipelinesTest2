@@ -18,24 +18,33 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build !
   inputs:
-    configuration: 'release'
     command: 'build'
     projects: '**/*.csproj'
+    configuration: 'Release'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet nuget push
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    command: custom
+    custom: nuget
+    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --source https://www.myget.org/F/stef-test/api/v3/index.json --no-service-endpoint --api-key $(MyGetKey)
+
 
 - task: DotNetCoreCLI@2
   displayName: Pack !
   inputs:
-    configuration: 'release'
     command: pack
     projects: '**/*.csproj'
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+    configuration: 'Release'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
-    configuration: 'release'
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    configuration: 'Release'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet nuget push
@@ -48,7 +57,7 @@ steps:
 #- task: DotNetCoreCLI@2
 #  displayName: 'MyGet !'
 #  inputs:
-#    configuration: 'release'
+#    configuration: 'Release'
 #    command: 'push'
 #    projects: '**/*.csproj'
 #    packagesToPush: '**/*.nupkg'
