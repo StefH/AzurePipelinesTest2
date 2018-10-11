@@ -23,13 +23,33 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  displayName: 'MyGet !'
+  displayName: 'Pack !'
   inputs:
-    configuration: '$(BuildConfiguration)'
-    command: 'push'
-    projects: '**/*.csproj'
-    packagesToPush: '**/*.nupkg'
-    nuGetFeedType: 'external' 
-    publishVstsFeed: 'https://www.myget.org/F/stef-test/api/v2/package'
-    publishFeedCredentials: '$(MyGetKey)'
-    versioningScheme: 'byPrereleaseNumber'
+    command: pack
+    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts !
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet nuget push
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    command: custom
+    custom: nuget
+    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --source https://www.myget.org/F/stef-test/api/v2/package/api/v3/index.json --no-service-endpoint --api-key $(MyGetKey)
+
+#- task: DotNetCoreCLI@2
+#  displayName: 'MyGet !'
+#  inputs:
+#    configuration: '$(BuildConfiguration)'
+#    command: 'push'
+#    projects: '**/*.csproj'
+#    packagesToPush: '**/*.nupkg'
+#    nuGetFeedType: 'external' 
+#    publishVstsFeed: 'https://www.myget.org/F/stef-test/api/v2/package'
+#    publishFeedCredentials: '$(MyGetKey)'
+#    versioningScheme: 'byPrereleaseNumber'
