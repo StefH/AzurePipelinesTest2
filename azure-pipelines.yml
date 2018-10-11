@@ -18,14 +18,14 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build !
   inputs:
-    configuration: '$(BuildConfiguration)'
+    configuration: '$(buildConfiguration)'
     command: 'build'
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Pack !
   inputs:
-    configuration: '$(BuildConfiguration)'
+    configuration: '$(buildConfiguration)'
     command: pack
     projects: '**/*.csproj'
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
@@ -43,12 +43,12 @@ steps:
   inputs:
     command: custom
     custom: nuget
-    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --source https://www.myget.org/F/stef-test/api/v2/package/api/v3/index.json --no-service-endpoint --api-key $(MyGetKey)
+    arguments: push $(Build.ArtifactStagingDirectory)/packages/*.nupkg --source https://www.myget.org/F/stef-test/api/v3/index.json --no-service-endpoint --api-key $(MyGetKey)
 
 #- task: DotNetCoreCLI@2
 #  displayName: 'MyGet !'
 #  inputs:
-#    configuration: '$(BuildConfiguration)'
+#    configuration: '$(buildConfiguration)'
 #    command: 'push'
 #    projects: '**/*.csproj'
 #    packagesToPush: '**/*.nupkg'
