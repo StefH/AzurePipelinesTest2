@@ -95,7 +95,7 @@ steps:
     #restoreDirectory: 
     #verbosityRestore: 'Detailed' # Options: -, quiet, minimal, normal, detailed, diagnostic
     
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '**/*.nupkg'
     #packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg' # Required when command == Push
 
     # Required when command == Push# Options: internal, external
