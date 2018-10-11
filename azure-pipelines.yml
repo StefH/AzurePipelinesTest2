@@ -12,23 +12,21 @@ steps:
   
  # Based on https://whereslou.com/2018/09/versioning-and-publishing-nuget-packages-automatically-using-azure-devops-pipelines/ 
 - task: DotNetCoreCLI@2
-  displayName: Build and Pack !
+  displayName: Build !
   inputs:
     command: 'build'
     arguments: /p:Configuration=$(BuildConfiguration) # https://github.com/MicrosoftDocs/vsts-docs/issues/1976
     projects: '**/*.csproj'
-    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
-    verbosityPack: 'normal'
 
-#- task: DotNetCoreCLI@2
-#  displayName: Pack !
-#  inputs:
-#    command: pack
-#    projects: '**/*.csproj'
-#    nobuild: true
-#    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
-#    versioningScheme: 'byPrereleaseNumber'
-#    verbosityPack: 'detailed'
+- task: DotNetCoreCLI@2
+  displayName: Pack !
+  inputs:
+    command: pack
+    projects: '**/*.csproj'
+    nobuild: true
+    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+    versioningScheme: 'byPrereleaseNumber'
+    verbosityPack: 'detailed'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
