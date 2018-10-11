@@ -19,8 +19,8 @@ steps:
   displayName: Build !
   inputs:
     command: 'build'
+    arguments: /p:Configuration=$(BuildConfiguration) # https://github.com/MicrosoftDocs/vsts-docs/issues/1976
     projects: '**/*.csproj'
-    configuration: 'Release'
 
 - task: DotNetCoreCLI@2
   displayName: Pack !
@@ -28,14 +28,12 @@ steps:
     command: pack
     projects: '**/*.csproj'
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
-    configuration: 'Release'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    configuration: 'Release'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet nuget push
