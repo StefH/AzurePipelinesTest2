@@ -16,27 +16,27 @@ steps:
   #displayName: 'Publish to MyGet 1 !'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build !'
+  displayName: Build !
   inputs:
     configuration: '$(BuildConfiguration)'
     command: 'build'
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Pack !'
+  displayName: Pack !
   inputs:
     command: pack
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifacts !
-  #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Publish Artifacts !
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet nuget push
-  #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: custom
     custom: nuget
