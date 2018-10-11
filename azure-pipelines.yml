@@ -18,14 +18,14 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build !
   inputs:
-    configuration: '$(buildConfiguration)'
+    configuration: 'release'
     command: 'build'
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Pack !
   inputs:
-    configuration: '$(buildConfiguration)'
+    configuration: 'release'
     command: pack
     projects: '**/*.csproj'
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
@@ -34,7 +34,7 @@ steps:
   displayName: Publish Artifacts !
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
-    configuration: '$(BuildConfiguration)'
+    configuration: 'release'
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
@@ -48,7 +48,7 @@ steps:
 #- task: DotNetCoreCLI@2
 #  displayName: 'MyGet !'
 #  inputs:
-#    configuration: '$(buildConfiguration)'
+#    configuration: 'release'
 #    command: 'push'
 #    projects: '**/*.csproj'
 #    packagesToPush: '**/*.nupkg'
