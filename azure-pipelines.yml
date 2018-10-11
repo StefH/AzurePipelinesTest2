@@ -27,7 +27,10 @@ steps:
   inputs:
     command: pack
     projects: '**/*.csproj'
+    nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+    versioningScheme: 'byPrereleaseNumber'
+    verbosityPack: 'detailed'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
