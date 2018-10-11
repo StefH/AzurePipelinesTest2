@@ -18,6 +18,7 @@ steps:
 # .NET Core
 # Build, test, package, or publish a dotnet application, or run a custom dotnet command. For package commands, supports NuGet.org and authenticated feeds like Package Management and MyGet.
 - task: DotNetCoreCLI@2
+  displayName: 'Build !'
   inputs:
     configuration: '$(BuildConfiguration)'
     # Options: build, push, pack, publish, restore, run, test, custom
@@ -43,7 +44,66 @@ steps:
     #packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg' # Required when command == Push
     #nuGetFeedType: 'internal' # Required when command == Push# Options: internal, external
     #publishVstsFeed: # Required when command == Push && NuGetFeedType == Internal
-    #publishFeedCredentials: # Required when command == Push && NuGetFeedType == External
+
+    # Required when command == Push && NuGetFeedType == External
+    # publishFeedCredentials: 
+    #packagesToPack: '**/*.csproj' # Required when command == Pack
+    
+    #packDirectory: '$(Build.ArtifactStagingDirectory)' # Optional
+    #nobuild: false # Optional
+
+    # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
+    #versioningScheme: 'byPrereleaseNumber'
+
+    #versionEnvVar: # Required when versioningScheme == ByEnvVar
+    #majorVersion: '1' # Required when versioningScheme == ByPrereleaseNumber
+    #minorVersion: '0' # Required when versioningScheme == ByPrereleaseNumber
+    #patchVersion: '0' # Required when versioningScheme == ByPrereleaseNumber
+    #buildProperties: # Optional
+
+    # Options: -, quiet, minimal, normal, detailed, diagnostic
+    verbosityPack: 'Detailed' 
+    #workingDirectory: 
+
+- task: DotNetCoreCLI@2
+  displayName: 'MyGet !'
+  inputs:
+    configuration: '$(BuildConfiguration)'
+    # Options: build, push, pack, publish, restore, run, test, custom
+    command: 'push'
+    
+    #publishWebProjects: true # Required when command == Publish
+
+    projects: '**/*.csproj'
+
+    #custom: # Required when command == Custom
+    #arguments: # Optional
+    #publishTestResults: true # Optional
+    #zipAfterPublish: true # Optional
+    #modifyOutputPath: true # Optional
+
+    # Options: select, config
+    feedsToUse: 'select' 
+
+    # Required when feedsToUse == Select
+    vstsFeed: https://www.myget.org/F/stef-test/api/v2/package
+
+    #includeNuGetOrg: true # Required when feedsToUse == Select
+    #nugetConfigPath: # Required when feedsToUse == Config
+    #externalFeedCredentials: # Optional
+    #noCache: false 
+    #restoreDirectory: 
+    #verbosityRestore: 'Detailed' # Options: -, quiet, minimal, normal, detailed, diagnostic
+    #packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg' # Required when command == Push
+
+    # Required when command == Push# Options: internal, external
+    nuGetFeedType: 'external' 
+    
+    #publishVstsFeed: # Required when command == Push && NuGetFeedType == Internal
+    
+    # Required when command == Push && NuGetFeedType == External
+    publishFeedCredentials: $(MyGetKey)
+    
     #packagesToPack: '**/*.csproj' # Required when command == Pack
     
     #packDirectory: '$(Build.ArtifactStagingDirectory)' # Optional
