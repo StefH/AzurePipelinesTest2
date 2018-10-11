@@ -90,7 +90,7 @@ steps:
 
     #includeNuGetOrg: true # Required when feedsToUse == Select
     #nugetConfigPath: # Required when feedsToUse == Config
-    externalFeedCredentials: $(MyGetKey)
+    #externalFeedCredentials: $(MyGetKey)
     #noCache: false 
     #restoreDirectory: 
     #verbosityRestore: 'Detailed' # Options: -, quiet, minimal, normal, detailed, diagnostic
