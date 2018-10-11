@@ -24,7 +24,7 @@ steps:
     
     #publishWebProjects: true # Required when command == Publish
 
-    projects: './src/ClassLibrary1/ClassLibrary1.csproj;./src/ClassLibrary2/ClassLibrary2.csproj'
+    projects: '**/ClassLibrary1.csproj;**/ClassLibrary2.csproj'
 
     #custom: # Required when command == Custom
     #arguments: # Optional
