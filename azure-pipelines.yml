@@ -5,12 +5,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- displayName: 'dotnet build $(buildConfiguration) Libraries'
-  script: |
+- script: |
     dotnet build ./src/ClassLibrary1/ClassLibrary1.csproj --configuration $(buildConfiguration)
     dotnet build ./src/ClassLibrary2/ClassLibrary2.csproj --configuration $(buildConfiguration)
+displayName: 'dotnet build $(buildConfiguration) Libraries'
   
 
-- displayName: 'Publish to MyGet 1 !'
-  script: |
+- script: |
     dotnet nuget push ./src/ClassLibrary1/bin/Release/*.nupkg --no-symbols --api-key $(MyGetKey) --source https://www.myget.org/F/stef-test/api/v2/package
+displayName: 'Publish to MyGet 1 !'
