@@ -61,10 +61,10 @@ steps:
     # Required when command == Push# Options: internal, external
     nuGetFeedType: 'external' 
     
-    publishVstsFeed: 'https://www.myget.org/F/stef-test/api/v2/package'
+    #publishVstsFeed: 'https://www.myget.org/F/stef-test/api/v2/package'
     
     # Required when command == Push && NuGetFeedType == External
-    publishFeedCredentials: '$(MyGetKey)'
+    publishFeedCredentials: 'MyGet-stef-test'
     
     #packagesToPack: '**/*.csproj' # Required when command == Pack
     
