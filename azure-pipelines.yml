@@ -6,13 +6,8 @@ variables:
   buildProjects: '**/src/**/*.csproj'
   testProjects: '**/test/**/*.csproj'
 
+# Based on https://whereslou.com/2018/09/versioning-and-publishing-nuget-packages-automatically-using-azure-devops-pipelines/ 
 steps:
-#- script: |
-    #dotnet build ./src/ClassLibrary1/ClassLibrary1.csproj --configuration $(buildConfiguration)
-    #dotnet build ./src/ClassLibrary2/ClassLibrary2.csproj --configuration $(buildConfiguration)
-  #displayName: 'dotnet build $(buildConfiguration) Libraries'
-  
- # Based on https://whereslou.com/2018/09/versioning-and-publishing-nuget-packages-automatically-using-azure-devops-pipelines/ 
 - task: DotNetCoreCLI@2
   displayName: Build !
   inputs:
@@ -25,27 +20,31 @@ steps:
   inputs:
     command: 'test'
     arguments: /p:Configuration=$(BuildConfiguration)
+    nobuild: true
     projects: $(testProjects)
 
 - task: DotNetCoreCLI@2
   displayName: Pack !
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
     command: pack
     projects: $(buildProjects)
     nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
     versioningScheme: 'byPrereleaseNumber'
-    verbosityPack: 'detailed'
+    verbosityPack: 'normal'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: Push to MyGet !
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
     command: custom
     custom: nuget
