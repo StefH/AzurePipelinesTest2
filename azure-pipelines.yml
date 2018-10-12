@@ -32,7 +32,6 @@ steps:
     packagesToPack: $(buildProjects)
     nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
-    versioningScheme: 'byPrereleaseNumber'
     verbosityPack: 'normal'
 
 - task: PublishBuildArtifacts@1
