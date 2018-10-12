@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- edit this value to change the current MAJOR.MINOR version -->
+    <VersionPrefix>1.0.4.18</VersionPrefix>
+  </PropertyGroup>
+  
+  <Choose>
+    <When Condition=" '$(Prerelease)' != '' ">
+      <PropertyGroup>
+        <VersionSuffix>$(Prerelease)-build$(BUILD_BUILDID.PadLeft(6, '0'))</VersionSuffix>
+      </PropertyGroup>
+    </When>
+    <!--<Otherwise>
+      <PropertyGroup>
+        <VersionPrefix>$(VersionPrefix).$(BUILD_BUILDID.PadLeft(1, '0'))</VersionPrefix>
+      </PropertyGroup>
+    </Otherwise>-->
+  </Choose>
+</Project>

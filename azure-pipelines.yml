@@ -3,6 +3,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  Prerelease: 'ci'
   buildProjects: '**/src/**/*.csproj'
   testProjects: '**/test/**/*.csproj'
 

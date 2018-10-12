@@ -12,12 +12,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F322066-0961-480C-A517-24310B8CFDA2}"
 	ProjectSection(SolutionItems) = preProject
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		..\Directory.Build.props = ..\Directory.Build.props
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{603D0605-6401-45A4-93CC-BBFAE5075C63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1Tests", "..\test\ClassLibrary1Tests\ClassLibrary1Tests.csproj", "{25551C14-75BF-4253-BE0F-87A0ECB96AE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary1Tests", "..\test\ClassLibrary1Tests\ClassLibrary1Tests.csproj", "{25551C14-75BF-4253-BE0F-87A0ECB96AE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
