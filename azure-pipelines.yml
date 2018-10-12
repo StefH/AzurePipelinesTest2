@@ -6,13 +6,8 @@ variables:
   buildProjects: '**/src/**/*.csproj'
   testProjects: '**/test/**/*.csproj'
 
+# Based on https://whereslou.com/2018/09/versioning-and-publishing-nuget-packages-automatically-using-azure-devops-pipelines/ 
 steps:
-#- script: |
-    #dotnet build ./src/ClassLibrary1/ClassLibrary1.csproj --configuration $(buildConfiguration)
-    #dotnet build ./src/ClassLibrary2/ClassLibrary2.csproj --configuration $(buildConfiguration)
-  #displayName: 'dotnet build $(buildConfiguration) Libraries'
-  
- # Based on https://whereslou.com/2018/09/versioning-and-publishing-nuget-packages-automatically-using-azure-devops-pipelines/ 
 - task: DotNetCoreCLI@2
   displayName: Build !
   inputs:
