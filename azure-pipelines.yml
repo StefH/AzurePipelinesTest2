@@ -35,13 +35,15 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: Push to MyGet !
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
     command: custom
     custom: nuget
