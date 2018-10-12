@@ -20,6 +20,7 @@ steps:
   inputs:
     command: 'test'
     arguments: /p:Configuration=$(BuildConfiguration)
+    nobuild: true
     projects: $(testProjects)
 
 - task: DotNetCoreCLI@2
