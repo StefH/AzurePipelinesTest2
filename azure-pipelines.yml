@@ -31,7 +31,7 @@ steps:
     nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
     versioningScheme: 'byPrereleaseNumber'
-    verbosityPack: 'detailed'
+    verbosityPack: 'normal'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts !
