@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{603D0605-6401-45A4-93CC-BBFAE5075C63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1Tests", "..\test\ClassLibrary1Tests\ClassLibrary1Tests.csproj", "{25551C14-75BF-4253-BE0F-87A0ECB96AE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{79B0776A-E0FB-4480-8543-B5C1900A8F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79B0776A-E0FB-4480-8543-B5C1900A8F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79B0776A-E0FB-4480-8543-B5C1900A8F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25551C14-75BF-4253-BE0F-87A0ECB96AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25551C14-75BF-4253-BE0F-87A0ECB96AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25551C14-75BF-4253-BE0F-87A0ECB96AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25551C14-75BF-4253-BE0F-87A0ECB96AE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E9AE4436-8D23-4877-8F17-057DAA87AC74} = {F4E929DE-4674-4699-AF92-249BCB3F3C1B}
 		{79B0776A-E0FB-4480-8543-B5C1900A8F13} = {F4E929DE-4674-4699-AF92-249BCB3F3C1B}
+		{25551C14-75BF-4253-BE0F-87A0ECB96AE8} = {603D0605-6401-45A4-93CC-BBFAE5075C63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {590F5679-6FE3-4E5F-9597-F407686B93AD}

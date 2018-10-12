@@ -3,6 +3,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  buildProjects: '**/src/**/*.csproj'
+  testProjects: '**/test/**/*.csproj'
 
 steps:
 #- script: |
@@ -16,13 +18,20 @@ steps:
   inputs:
     command: 'build'
     arguments: /p:Configuration=$(BuildConfiguration) # https://github.com/MicrosoftDocs/vsts-docs/issues/1976
-    projects: '**/*.csproj'
+    projects: $(buildProjects)
+
+- task: DotNetCoreCLI@2
+  displayName: Test !
+  inputs:
+    command: 'test'
+    arguments: /p:Configuration=$(BuildConfiguration)
+    projects: $(testProjects)
 
 - task: DotNetCoreCLI@2
   displayName: Pack !
   inputs:
     command: pack
-    projects: '**/*.csproj'
+    projects: $(buildProjects)
     nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
     versioningScheme: 'byPrereleaseNumber'
@@ -35,7 +44,7 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
-  displayName: dotnet nuget push
+  displayName: Push to MyGet !
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: custom
